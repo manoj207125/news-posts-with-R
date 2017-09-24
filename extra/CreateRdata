@@ -1,0 +1,18 @@
+setwd("C:/Users/Project/Desktop/Social Media Data/socialmedia")
+list.filenames<-as.list(dir(pattern=".RData"))
+
+#RdataFile <- lapply(file_names,load,.GlobalEnv)
+load(list.filenames[[1]])
+fb_page_con <- data.frame(matrix(1:1, ncol = 16))
+names(fb_page_con) <- names(fb_page)
+fb_page_con <- rbind(fb_page_con,fb_page)
+
+for (i in 2:length(list.filenames))
+  {
+  #list.data [i] <-list.files("C:/Users/Project/Desktop/Social Media Data/socialmedia", pattern="*.RData", full.names="TRUE")        
+      load(list.filenames[[i]])
+     fb_page_con <- rbind(fb_page_con,fb_page)
+}
+fb_page_con <- fb_page_con[-1,]
+
+save(fb_page_con, file = "LatestFbpage.RData")
